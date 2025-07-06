@@ -41,14 +41,14 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "openGL::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-openGL-Debug-03d12f2c75c819461102.json",
+					"jsonFile" : "target-openGL-Debug-60c4b9873483efcdc427.json",
 					"name" : "openGL",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "tests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-tests-Debug-7c0b987af5a28a42e1f3.json",
+					"jsonFile" : "target-tests-Debug-37ad3df9149057668c33.json",
 					"name" : "tests",
 					"projectIndex" : 0
 				}

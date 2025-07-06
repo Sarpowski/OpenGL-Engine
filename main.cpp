@@ -1,16 +1,31 @@
 #include <iostream>
+#include "GL/glew.h"
 #include "glfw/glfw3.h"
 
 int main() {
 
-    if (!glfwInit()) {
-        std::cerr << "GLFW initialization failed!" << std::endl;
+    GLFWwindow* window;
+    if(!glfwInit()){
+        std::cerr << "Failed to initialize GLFW" << std::endl;
         return -1;
     }
-    else{
-        std::cout << "GLFW initialized successfully!" << std::endl;
+
+    glewInit();
+    window = glfwCreateWindow(800, 600, "Hello GLFW", NULL, NULL);
+    glfwMakeContextCurrent(window);
+
+    while(!glfwWindowShouldClose(window)){
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        glBegin(GL_TRIANGLES);
+        glVertex2f(0.0f, 0.5f);   // top center
+        glVertex2f(-0.5f, -0.5f); // bottom left
+        glVertex2f(0.5f, -0.5f);  // bottom right
+        glEnd();
+        glfwSwapBuffers(window);
+
+        glfwPollEvents();
     }
     glfwTerminate();
-    std::cout << "Hello, World!" << std::endl;
     return 0;
 }

@@ -5,14 +5,16 @@ set(CMAKE_CXX_STANDARD 20)
 
 find_package(glfw3 REQUIRED)
 find_package(GTest REQUIRED)
+find_package(glew REQUIRED)
+
 
 add_executable(openGL main.cpp src/math.cpp)
 target_include_directories(openGL PRIVATE src)
-target_link_libraries(openGL PRIVATE glfw)
-
+target_link_libraries(openGL PRIVATE glfw )
+target_link_libraries(openGL PRIVATE GLEW::GLEW )
 add_executable(tests tests/test_math.cpp src/math.cpp
-        tests/test_glwf_integration.cpp)
+        tests/test_integrations.cpp)
 target_include_directories(tests PRIVATE src)
-target_link_libraries(tests PRIVATE glfw GTest::gtest_main)
+target_link_libraries(tests PRIVATE glfw GLEW::GLEW GTest::gtest_main )
 enable_testing()
-add_test(NAME MathTests COMMAND tests)
+add_test(NAME EngineTests COMMAND tests)

@@ -257,14 +257,38 @@ CONAN_HOST_PROFILE:STRING=default;auto-cmake
 //Command line arguments for conan install
 CONAN_INSTALL_ARGS:STRING=--build=missing
 
+//The directory containing a CMake configuration file for GLEW.
+GLEW_DIR:PATH=GLEW_DIR-NOTFOUND
+
+//Path to a file.
+GLEW_INCLUDE_DIR:PATH=GLEW_INCLUDE_DIR-NOTFOUND
+
+//Path to a library.
+GLEW_SHARED_LIBRARY_DEBUG:FILEPATH=GLEW_SHARED_LIBRARY_DEBUG-NOTFOUND
+
+//Path to a library.
+GLEW_SHARED_LIBRARY_RELEASE:FILEPATH=GLEW_SHARED_LIBRARY_RELEASE-NOTFOUND
+
+//Path to a library.
+GLEW_STATIC_LIBRARY_DEBUG:FILEPATH=GLEW_STATIC_LIBRARY_DEBUG-NOTFOUND
+
+//Path to a library.
+GLEW_STATIC_LIBRARY_RELEASE:FILEPATH=GLEW_STATIC_LIBRARY_RELEASE-NOTFOUND
+
 //The directory containing a CMake configuration file for GTest.
 GTest_DIR:PATH=C:/Users/Can/Desktop/openGl_cherno/openGL/cmake-build-debug/conan/build/Debug/generators
 
 //Path to a program.
 _cmake_program:FILEPATH=C:/Users/Can/devTools/cmake-3.30.2-windows-x86_64/bin/cmake.exe
 
+//The directory containing a CMake configuration file for glew.
+glew_DIR:PATH=C:/Users/Can/Desktop/openGl_cherno/openGL/cmake-build-debug/conan/build/Debug/generators
+
 //The directory containing a CMake configuration file for glfw3.
 glfw3_DIR:PATH=C:/Users/Can/Desktop/openGl_cherno/openGL/cmake-build-debug/conan/build/Debug/generators
+
+//The directory containing a CMake configuration file for glu.
+glu_DIR:PATH=C:/Users/Can/Desktop/openGl_cherno/openGL/cmake-build-debug/conan/build/Debug/generators
 
 //Value Computed by CMake
 openGL_BINARY_DIR:STATIC=C:/Users/Can/Desktop/openGl_cherno/openGL/cmake-build-debug
@@ -437,6 +461,16 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_TAPI-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: GLEW_INCLUDE_DIR
+GLEW_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: GLEW_SHARED_LIBRARY_DEBUG
+GLEW_SHARED_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: GLEW_SHARED_LIBRARY_RELEASE
+GLEW_SHARED_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: GLEW_STATIC_LIBRARY_DEBUG
+GLEW_STATIC_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: GLEW_STATIC_LIBRARY_RELEASE
+GLEW_STATIC_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //linker supports push/pop state
 _CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 //Test _conan_gnu_libstdcxx_is_cxx11_abi

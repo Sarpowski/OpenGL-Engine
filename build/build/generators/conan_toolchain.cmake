@@ -18,24 +18,14 @@ endif()
 # Definition of system, platform and toolset
 
 
+set(CMAKE_GENERATOR_PLATFORM "x64" CACHE STRING "" FORCE)
 
+message(STATUS "Conan toolchain: CMAKE_GENERATOR_TOOLSET=v143")
+set(CMAKE_GENERATOR_TOOLSET "v143" CACHE STRING "" FORCE)
 
 
 ########## 'compilers' block #############
 
-set(CMAKE_C_COMPILER "C:/Program Files/JetBrains/CLion 2024.1.3/bin/mingw/bin/gcc.exe")
-set(CMAKE_CXX_COMPILER "C:/Program Files/JetBrains/CLion 2024.1.3/bin/mingw/bin/g++.exe")
-set(CMAKE_RC_COMPILER "C:/Program Files/JetBrains/CLion 2024.1.3/bin/mingw/bin/windres.exe")
-
-
-########## 'arch_flags' block #############
-# Define C++ flags, C flags and linker flags from 'settings.arch'
-
-message(STATUS "Conan toolchain: Defining architecture flag: -m64")
-string(APPEND CONAN_CXX_FLAGS " -m64")
-string(APPEND CONAN_C_FLAGS " -m64")
-string(APPEND CONAN_SHARED_LINKER_FLAGS " -m64")
-string(APPEND CONAN_EXE_LINKER_FLAGS " -m64")
 
 
 ########## 'libcxx' block #############
@@ -44,11 +34,34 @@ string(APPEND CONAN_EXE_LINKER_FLAGS " -m64")
 
 
 
+########## 'vs_runtime' block #############
+# Definition of VS runtime CMAKE_MSVC_RUNTIME_LIBRARY, from settings build_type,
+# compiler.runtime, compiler.runtime_type
+
+cmake_policy(GET CMP0091 POLICY_CMP0091)
+if(NOT "${POLICY_CMP0091}" STREQUAL NEW)
+    message(FATAL_ERROR "The CMake policy CMP0091 must be NEW, but is '${POLICY_CMP0091}'")
+endif()
+message(STATUS "Conan toolchain: Setting CMAKE_MSVC_RUNTIME_LIBRARY=$<$<CONFIG:Release>:MultiThreadedDLL>")
+set(CMAKE_MSVC_RUNTIME_LIBRARY "$<$<CONFIG:Release>:MultiThreadedDLL>")
+
+
+########## 'vs_debugger_environment' block #############
+# Definition of CMAKE_VS_DEBUGGER_ENVIRONMENT from "bindirs" folders of dependencies
+# for execution of applications with shared libraries within the VS IDE
+
+# if the file exists it will be loaded by FindFiles block and the variable defined there
+if(NOT EXISTS "${CMAKE_CURRENT_LIST_DIR}/conan_cmakedeps_paths.cmake")
+# This variable requires CMake>=3.27 to work
+set(CMAKE_VS_DEBUGGER_ENVIRONMENT "PATH=$<$<CONFIG:Release>:C:/Users/Can/.conan2/p/gtest833a88be83c4b/p/bin;C:/Users/Can/.conan2/p/glfw5a2540817a296/p/bin;C:/Users/Can/.conan2/p/glew8d46f88671e99/p/bin>;%PATH%")
+endif()
+
+
 ########## 'cppstd' block #############
 # Define the C++ and C standards from 'compiler.cppstd' and 'compiler.cstd'
 
 function(conan_modify_std_watch variable access value current_list_file stack)
-    set(conan_watched_std_variable "20")
+    set(conan_watched_std_variable "14")
     if (${variable} STREQUAL "CMAKE_C_STANDARD")
         set(conan_watched_std_variable "")
     endif()
@@ -58,18 +71,25 @@ function(conan_modify_std_watch variable access value current_list_file stack)
     unset(conan_watched_std_variable)
 endfunction()
 
-message(STATUS "Conan toolchain: C++ Standard 20 with extensions OFF")
-set(CMAKE_CXX_STANDARD 20)
+message(STATUS "Conan toolchain: C++ Standard 14 with extensions OFF")
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 variable_watch(CMAKE_CXX_STANDARD conan_modify_std_watch)
+
+
+########## 'parallel' block #############
+# Define VS paralell build /MP flags
+
+string(APPEND CONAN_CXX_FLAGS " /MP16")
+string(APPEND CONAN_C_FLAGS " /MP16")
 
 
 ########## 'extra_flags' block #############
 # Include extra C++, C and linker flags from configuration tools.build:<type>flags
 # and from CMakeToolchain.extra_<type>_flags
 
-# Conan conf flags start: 
+# Conan conf flags start: Release
 # Conan conf flags end
 
 
@@ -137,9 +157,9 @@ list(PREPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 # Definition of CMAKE_PREFIX_PATH, CMAKE_XXXXX_PATH
 # The Conan local "generators" folder, where this toolchain is saved.
 list(PREPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_LIST_DIR} )
-list(PREPEND CMAKE_LIBRARY_PATH "C:/Users/Can/.conan2/p/b/gtest8f362df3d2947/p/lib" "C:/Users/Can/.conan2/p/b/glfw3e6b3a590d6ee/p/lib" "C:/Users/Can/.conan2/p/b/glew5f8b7e4f8ed26/p/lib")
-list(PREPEND CMAKE_INCLUDE_PATH "C:/Users/Can/.conan2/p/b/gtest8f362df3d2947/p/include" "C:/Users/Can/.conan2/p/b/glfw3e6b3a590d6ee/p/include" "C:/Users/Can/.conan2/p/b/glew5f8b7e4f8ed26/p/include")
-set(CONAN_RUNTIME_LIB_DIRS "C:/Users/Can/.conan2/p/b/gtest8f362df3d2947/p/bin" "C:/Users/Can/.conan2/p/b/glfw3e6b3a590d6ee/p/bin" "C:/Users/Can/.conan2/p/b/glew5f8b7e4f8ed26/p/bin" )
+list(PREPEND CMAKE_LIBRARY_PATH "C:/Users/Can/.conan2/p/gtest833a88be83c4b/p/lib" "C:/Users/Can/.conan2/p/glfw5a2540817a296/p/lib" "C:/Users/Can/.conan2/p/glew8d46f88671e99/p/lib")
+list(PREPEND CMAKE_INCLUDE_PATH "C:/Users/Can/.conan2/p/gtest833a88be83c4b/p/include" "C:/Users/Can/.conan2/p/glfw5a2540817a296/p/include" "C:/Users/Can/.conan2/p/glew8d46f88671e99/p/include")
+set(CONAN_RUNTIME_LIB_DIRS "$<$<CONFIG:Release>:C:/Users/Can/.conan2/p/gtest833a88be83c4b/p/bin>" "$<$<CONFIG:Release>:C:/Users/Can/.conan2/p/glfw5a2540817a296/p/bin>" "$<$<CONFIG:Release>:C:/Users/Can/.conan2/p/glew8d46f88671e99/p/bin>" )
 
 endif()
 
