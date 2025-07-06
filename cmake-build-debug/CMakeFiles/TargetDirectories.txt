@@ -1,0 +1,5 @@
+C:/Users/Can/Desktop/openGl_cherno/openGL/cmake-build-debug/CMakeFiles/openGL.dir
+C:/Users/Can/Desktop/openGl_cherno/openGL/cmake-build-debug/CMakeFiles/tests.dir
+C:/Users/Can/Desktop/openGl_cherno/openGL/cmake-build-debug/CMakeFiles/test.dir
+C:/Users/Can/Desktop/openGl_cherno/openGL/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Can/Desktop/openGl_cherno/openGL/cmake-build-debug/CMakeFiles/rebuild_cache.dir
